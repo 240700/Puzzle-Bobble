@@ -1,0 +1,84 @@
+[gd_scene load_steps=11 format=3 uid="uid://cypajsc6qh70i"]
+
+[ext_resource type="Script" path="res://scene/playfield/playfield.gd" id="1_m3jw0"]
+[ext_resource type="Texture2D" uid="uid://cj1efv8xu0jhg" path="res://asset/1.png" id="3_jjvnb"]
+[ext_resource type="Texture2D" uid="uid://daucdqtji8fov" path="res://asset/3.png" id="4_at11y"]
+[ext_resource type="Script" path="res://scene/playfield/helper.gd" id="5_8ldif"]
+[ext_resource type="Texture2D" uid="uid://cbcbwer4yrhvo" path="res://asset/2.png" id="5_scmxc"]
+[ext_resource type="Script" path="res://scene/playfield/draw_cell.gd" id="6_4rgx2"]
+[ext_resource type="AudioStream" uid="uid://bs4rx0srvhlv2" path="res://asset/sound/消除.wav" id="7_sgopj"]
+[ext_resource type="AudioStream" uid="uid://b5rxpmedq8fcc" path="res://asset/sound/掉落消除.wav" id="8_8i56f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p0x2j"]
+size = Vector2(128, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o30nu"]
+size = Vector2(8, 208)
+
+[node name="Playfield" type="Node2D" groups=["Playfield"]]
+script = ExtResource("1_m3jw0")
+
+[node name="Shade" type="Sprite2D" parent="."]
+clip_children = 1
+texture = ExtResource("4_at11y")
+centered = false
+offset = Vector2(8, 8)
+
+[node name="Trap" type="CharacterBody2D" parent="Shade"]
+collision_mask = 4
+
+[node name="TrapSprite" type="Sprite2D" parent="Shade/Trap"]
+position = Vector2(0, -154)
+texture = ExtResource("4_at11y")
+centered = false
+offset = Vector2(8, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shade/Trap"]
+position = Vector2(72, 4)
+shape = SubResource("RectangleShape2D_p0x2j")
+
+[node name="Wall" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="WallSprite" type="Sprite2D" parent="Wall"]
+texture = ExtResource("3_jjvnb")
+centered = false
+
+[node name="left" type="CollisionShape2D" parent="Wall"]
+position = Vector2(4, 104)
+shape = SubResource("RectangleShape2D_o30nu")
+
+[node name="right" type="CollisionShape2D" parent="Wall"]
+position = Vector2(140, 104)
+shape = SubResource("RectangleShape2D_o30nu")
+
+[node name="CeillingSprite" type="Sprite2D" parent="."]
+texture = ExtResource("5_scmxc")
+centered = false
+offset = Vector2(8, 0)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="bubbles" type="Node2D" parent="."]
+z_index = 1
+
+[node name="friends" type="Node2D" parent="."]
+z_index = 2
+
+[node name="Helper" type="Node" parent="."]
+script = ExtResource("5_8ldif")
+
+[node name="Node2D" type="Node2D" parent="."]
+script = ExtResource("6_4rgx2")
+
+[node name="audio_clear" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_sgopj")
+bus = &"SFX"
+
+[node name="audio_fall_clear" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_8i56f")
+bus = &"SFX"
+
+[connection signal="timeout" from="Timer" to="." method="trap_descend"]

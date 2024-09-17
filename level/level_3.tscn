@@ -1,0 +1,148 @@
+[gd_scene load_steps=14 format=3 uid="uid://c0hai0qxgc3og"]
+
+[ext_resource type="Script" path="res://scene/arena/arena.gd" id="1_b8qrn"]
+[ext_resource type="Texture2D" uid="uid://c818sh17ctmxv" path="res://asset/bg.png" id="2_bsk2a"]
+[ext_resource type="PackedScene" uid="uid://cypajsc6qh70i" path="res://scene/playfield/playfield.tscn" id="3_spxfl"]
+[ext_resource type="Texture2D" uid="uid://cmgjk7vx1bd0q" path="res://asset/fg.png" id="4_8l8w5"]
+[ext_resource type="PackedScene" uid="uid://m1w56aiuif58" path="res://scene/launcher/launcher.tscn" id="5_yomp0"]
+[ext_resource type="Script" path="res://scene/arena/bubble_locator.gd" id="6_gy0q5"]
+[ext_resource type="PackedScene" uid="uid://cs8l2hqprl1ee" path="res://scene/bubble/bubble.tscn" id="7_jsoue"]
+[ext_resource type="AudioStream" uid="uid://dev0a385jkb2j" path="res://asset/sound/bgm.mp3" id="8_3sud8"]
+[ext_resource type="AudioStream" uid="uid://be38fxrtbsobl" path="res://asset/sound/ready.wav" id="9_2d28k"]
+[ext_resource type="AudioStream" uid="uid://bhqolpchh7b3n" path="res://asset/sound/go.wav" id="10_0rufx"]
+[ext_resource type="AudioStream" uid="uid://ba5vjy8ddppbk" path="res://asset/sound/失败_1.wav" id="11_xepfk"]
+[ext_resource type="AudioStream" uid="uid://o77sthyaaiw3" path="res://asset/sound/失败_2.wav" id="12_2figp"]
+[ext_resource type="AudioStream" uid="uid://dkqa2jirf6lju" path="res://asset/sound/胜利.wav" id="13_aggyo"]
+
+[node name="Arena" type="Node2D" node_paths=PackedStringArray("bubbles")]
+script = ExtResource("1_b8qrn")
+bubbles = NodePath("bubbles")
+
+[node name="Bg" type="Sprite2D" parent="."]
+texture = ExtResource("2_bsk2a")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Playfield" parent="." node_paths=PackedStringArray("level_bubbles_node2d") instance=ExtResource("3_spxfl")]
+position = Vector2(88, 16)
+level_bubbles_node2d = NodePath("../bubbles")
+descend_interval = Array[float]([20.0, 15.0, 15.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0])
+
+[node name="Floor" type="Sprite2D" parent="."]
+texture = ExtResource("4_8l8w5")
+centered = false
+offset = Vector2(0, 224)
+metadata/_edit_lock_ = true
+
+[node name="Launcher" parent="." node_paths=PackedStringArray("playfield") instance=ExtResource("5_yomp0")]
+position = Vector2(160, 204)
+playfield = NodePath("../Playfield")
+
+[node name="bubbles" type="Node2D" parent="."]
+position = Vector2(88, 16)
+script = ExtResource("6_gy0q5")
+
+[node name="Bubble" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(16, 16)
+type = 5
+
+[node name="Bubble2" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(24, 29.8564)
+type = 1
+
+[node name="Bubble3" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(40, 29.8564)
+type = 5
+
+[node name="Bubble4" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(56, 29.8564)
+
+[node name="Bubble5" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(72, 29.8564)
+type = 4
+
+[node name="Bubble6" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(88, 29.8564)
+type = 1
+
+[node name="Bubble7" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(104, 29.8564)
+type = 5
+
+[node name="Bubble8" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(120, 29.8564)
+
+[node name="Bubble9" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(128, 16)
+type = 5
+
+[node name="Bubble10" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(16, 43.7128)
+type = 4
+
+[node name="Bubble11" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(24, 57.5692)
+
+[node name="Bubble12" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(40, 57.5692)
+type = 4
+
+[node name="Bubble13" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(56, 57.5692)
+type = 1
+
+[node name="Bubble14" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(72, 57.5692)
+type = 5
+
+[node name="Bubble15" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(88, 57.5692)
+
+[node name="Bubble16" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(104, 57.5692)
+type = 4
+
+[node name="Bubble17" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(120, 57.5692)
+type = 1
+
+[node name="Bubble18" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(128, 43.7128)
+type = 4
+
+[node name="Bubble19" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(64, 71.4256)
+type = 1
+
+[node name="Bubble20" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(72, 85.282)
+type = 5
+
+[node name="Bubble21" parent="bubbles" instance=ExtResource("7_jsoue")]
+position = Vector2(64, 99.1384)
+type = 1
+
+[node name="bgm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_3sud8")
+autoplay = true
+bus = &"Music"
+parameters/looping = true
+
+[node name="audio_ready" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_2d28k")
+bus = &"Music"
+
+[node name="audio_go" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_0rufx")
+bus = &"Music"
+
+[node name="audio_defeat_1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_xepfk")
+
+[node name="audio_defeat_2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_2figp")
+
+[node name="audio_victory" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_aggyo")
+
+[connection signal="child_entered_tree" from="bubbles" to="bubbles" method="_on_child_entered_tree"]

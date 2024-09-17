@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cs8l2hqprl1ee"]
+
+[ext_resource type="Script" path="res://scene/bubble/bubble.gd" id="1_46ofx"]
+[ext_resource type="SpriteFrames" uid="uid://uorf1dxe102o" path="res://resource/normal_bubble/bubble_blue.tres" id="2_njkr5"]
+[ext_resource type="AudioStream" uid="uid://b1t6tbrxfddw6" path="res://asset/sound/泡泡撞墙.wav" id="3_vsn7s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lxjfn"]
+radius = 7.5
+
+[node name="Bubble" type="CharacterBody2D" node_paths=PackedStringArray("animated_sprite_2d", "collision_shape_2d") groups=["Bubble"]]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_46ofx")
+animated_sprite_2d = NodePath("AnimatedSprite2D")
+collision_shape_2d = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_lxjfn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["Bubble"]]
+sprite_frames = ExtResource("2_njkr5")
+frame_progress = 0.518808
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_vsn7s")
+bus = &"SFX"

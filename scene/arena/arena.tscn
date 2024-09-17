@@ -1,0 +1,68 @@
+[gd_scene load_steps=13 format=3 uid="uid://crkoijfijcswo"]
+
+[ext_resource type="Script" path="res://scene/arena/arena.gd" id="1_q3uxp"]
+[ext_resource type="Texture2D" uid="uid://c818sh17ctmxv" path="res://asset/bg.png" id="2_5dfs1"]
+[ext_resource type="PackedScene" uid="uid://cypajsc6qh70i" path="res://scene/playfield/playfield.tscn" id="2_iqh7y"]
+[ext_resource type="Texture2D" uid="uid://cmgjk7vx1bd0q" path="res://asset/fg.png" id="4_cb3x4"]
+[ext_resource type="PackedScene" uid="uid://m1w56aiuif58" path="res://scene/launcher/launcher.tscn" id="5_wnyqo"]
+[ext_resource type="Script" path="res://scene/arena/bubble_locator.gd" id="6_cvt3g"]
+[ext_resource type="AudioStream" uid="uid://dev0a385jkb2j" path="res://asset/sound/bgm.mp3" id="7_t1oow"]
+[ext_resource type="AudioStream" uid="uid://be38fxrtbsobl" path="res://asset/sound/ready.wav" id="8_nocaj"]
+[ext_resource type="AudioStream" uid="uid://bhqolpchh7b3n" path="res://asset/sound/go.wav" id="9_j8emn"]
+[ext_resource type="AudioStream" uid="uid://ba5vjy8ddppbk" path="res://asset/sound/失败_1.wav" id="10_fbgpq"]
+[ext_resource type="AudioStream" uid="uid://o77sthyaaiw3" path="res://asset/sound/失败_2.wav" id="11_1dscb"]
+[ext_resource type="AudioStream" uid="uid://dkqa2jirf6lju" path="res://asset/sound/胜利.wav" id="12_8hvh8"]
+
+[node name="Arena" type="Node2D" node_paths=PackedStringArray("bubbles")]
+script = ExtResource("1_q3uxp")
+bubbles = NodePath("bubbles")
+is_level = false
+
+[node name="Bg" type="Sprite2D" parent="."]
+texture = ExtResource("2_5dfs1")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="Playfield" parent="." node_paths=PackedStringArray("level_bubbles_node2d") instance=ExtResource("2_iqh7y")]
+position = Vector2(88, 16)
+level_bubbles_node2d = NodePath("../bubbles")
+descend_interval = Array[float]([20.0, 15.0, 15.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0, 10.0])
+
+[node name="Floor" type="Sprite2D" parent="."]
+texture = ExtResource("4_cb3x4")
+centered = false
+offset = Vector2(0, 224)
+metadata/_edit_lock_ = true
+
+[node name="Launcher" parent="." node_paths=PackedStringArray("playfield") instance=ExtResource("5_wnyqo")]
+position = Vector2(160, 204)
+playfield = NodePath("../Playfield")
+
+[node name="bubbles" type="Node2D" parent="."]
+position = Vector2(88, 16)
+script = ExtResource("6_cvt3g")
+
+[node name="bgm" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_t1oow")
+autoplay = true
+bus = &"Music"
+parameters/looping = true
+
+[node name="audio_ready" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_nocaj")
+bus = &"Music"
+
+[node name="audio_go" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_j8emn")
+bus = &"Music"
+
+[node name="audio_defeat_1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_fbgpq")
+
+[node name="audio_defeat_2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_1dscb")
+
+[node name="audio_victory" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_8hvh8")
+
+[connection signal="child_entered_tree" from="bubbles" to="bubbles" method="_on_child_entered_tree"]

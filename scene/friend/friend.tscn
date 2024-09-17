@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccmq8p2o6lypb"]
+
+[ext_resource type="Texture2D" uid="uid://cgcjmuagv7hpj" path="res://asset/friend/friend_black.png" id="1_tlgmw"]
+[ext_resource type="Script" path="res://scene/friend/friend.gd" id="2_mw5ms"]
+
+[node name="Friend" type="Sprite2D"]
+texture = ExtResource("1_tlgmw")
+hframes = 4
+script = ExtResource("2_mw5ms")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="queue_free"]
